@@ -193,7 +193,7 @@ export function CandidatesManager() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row  items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Candidates</h1>
           <p className="text-gray-600 mt-2">Manage election candidates and their information</p>
@@ -296,7 +296,7 @@ export function CandidatesManager() {
                       <UserCheck className="w-5 h-5 text-green-600" />
                       <CardTitle className="text-lg">{candidate.name}</CardTitle>
                     </div>
-                    <div className="flex items-center space-x-1">
+                    <div className="flex flex-col md:flex-row items-center space-x-1">
                       <Button variant="ghost" size="sm" onClick={() => handleEdit(candidate)}>
                         <Edit className="w-4 h-4" />
                       </Button>

@@ -207,7 +207,7 @@ export function AdminSettings() {
 
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row items-center justify-between">
             <div>
               <CardTitle className="flex items-center">
                 <Shield className="w-5 h-5 mr-2 text-green-600" />
@@ -236,7 +236,7 @@ export function AdminSettings() {
                     <span className="text-white font-medium">{admin.email.charAt(0).toUpperCase()}</span>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{admin.email}</p>
+                    <p className="font-medium  text-gray-900">{admin.email.slice(0,admin.email.length<35?admin.email.length:35)}{admin.email.length<35?"":'...'}</p>
                     <div className="flex items-center space-x-2 mt-1">
                       <span
                         className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${

@@ -144,7 +144,7 @@ export function CategoriesManager() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Election Categories</h1>
           <p className="text-gray-600 mt-2">Manage election categories and positions</p>
@@ -220,7 +220,7 @@ export function CategoriesManager() {
                   <Vote className="w-5 h-5 text-blue-600" />
                   <CardTitle className="text-lg">{category.name}</CardTitle>
                 </div>
-                <div className="flex items-center space-x-1">
+                <div className="flex flex-col md:flex-row items-center space-x-1">
                   <Button variant="ghost" size="sm" onClick={() => handleEdit(category)}>
                     <Edit className="w-4 h-4" />
                   </Button>

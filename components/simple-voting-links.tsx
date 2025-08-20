@@ -472,12 +472,12 @@ export function SimpleVotingLinks() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row   items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Voting Links</h2>
           <p className="text-gray-600 mt-1">Generate and manage voting links for your election</p>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex flex-col md:flex-row  gap-1 space-x-2">
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="outline" className="text-red-600 hover:text-red-700 hover:bg-red-50 bg-transparent">
@@ -595,7 +595,7 @@ export function SimpleVotingLinks() {
           <CardDescription>Choose voters who will be authorized to use the voting links</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col md:flex-row  gap-1 items-end space-x-4">
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <Input
@@ -691,7 +691,7 @@ export function SimpleVotingLinks() {
       </Card>
 
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-col md:flex-row   items-center justify-between">
           <div>
             <CardTitle className="flex items-center">
               <Clock className="w-5 h-5 mr-2 text-green-600" />
@@ -699,7 +699,7 @@ export function SimpleVotingLinks() {
             </CardTitle>
             <CardDescription>Manage previously generated voting links</CardDescription>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex flex-col md:flex-row   gap-1 space-x-2">
             <Button
               variant="outline"
               onClick={sendAllWhatsApp}
@@ -723,9 +723,9 @@ export function SimpleVotingLinks() {
           <div className="space-y-4">
             {votingLinks.map((link) => (
               <div key={link.id} className="border rounded-lg hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between p-4 border-b">
+                <div className="flex flex-col md:flex-row   items-start justify-between p-4 border-b">
                   <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-2">
+                    <div className="flex flex-col md:flex-row   gap-1  items-start space-x-2 mb-2">
                       <Badge variant={link.linkType === "unified" ? "default" : "secondary"}>
                         {link.linkType === "unified" ? (
                           <>

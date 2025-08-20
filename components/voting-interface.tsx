@@ -84,15 +84,15 @@ export function VotingInterface({ token, voter, category, candidates }: VotingIn
 
   if (timeExpired) {
     return (
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto px-2 sm:px-4">
         <Card className="border-red-200 bg-red-50">
-          <CardContent className="text-center py-12">
-            <Clock className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-red-900 mb-4">Voting Session Expired</h2>
-            <p className="text-red-700 mb-6">
+          <CardContent className="text-center py-8 sm:py-12 px-4 sm:px-6">
+            <Clock className="w-12 h-12 sm:w-16 sm:h-16 text-red-500 mx-auto mb-4" />
+            <h2 className="text-lg sm:text-2xl font-bold text-red-900 mb-4">Voting Session Expired</h2>
+            <p className="text-sm sm:text-base text-red-700 mb-6">
               Your voting link has expired. Please contact the election administrator for a new voting link.
             </p>
-            <Button onClick={() => router.push("/")} variant="outline">
+            <Button onClick={() => router.push("/")} variant="outline" size="sm" className="w-full sm:w-auto">
               Return to Home
             </Button>
           </CardContent>
@@ -103,21 +103,21 @@ export function VotingInterface({ token, voter, category, candidates }: VotingIn
 
   if (voteSubmitted) {
     return (
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto px-2 sm:px-4">
         <Card className="border-green-200 bg-green-50">
-          <CardContent className="text-center py-12">
-            <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-green-900 mb-4">Vote Submitted Successfully!</h2>
-            <p className="text-green-700 mb-6">
+          <CardContent className="text-center py-8 sm:py-12 px-4 sm:px-6">
+            <CheckCircle className="w-12 h-12 sm:w-16 sm:h-16 text-green-500 mx-auto mb-4" />
+            <h2 className="text-lg sm:text-2xl font-bold text-green-900 mb-4">Vote Submitted Successfully!</h2>
+            <p className="text-sm sm:text-base text-green-700 mb-6">
               Thank you for participating in the election. Your vote has been recorded securely.
             </p>
-            <div className="bg-white p-4 rounded-lg border border-green-200 mb-6">
-              <p className="text-sm text-gray-600 mb-2">Election Details:</p>
-              <p className="font-medium text-gray-900">{category.name}</p>
-              <p className="text-sm text-gray-600">Voter: {voter.username}</p>
+            <div className="bg-white p-3 sm:p-4 rounded-lg border border-green-200 mb-6 text-left">
+              <p className="text-xs sm:text-sm text-gray-600 mb-2">Election Details:</p>
+              <p className="font-medium text-sm sm:text-base text-gray-900 break-words">{category.name}</p>
+              <p className="text-xs sm:text-sm text-gray-600 break-words">Voter: {voter.username}</p>
               <p className="text-xs text-gray-500 mt-2">Vote submitted at {new Date().toLocaleString()}</p>
             </div>
-            <Button onClick={() => router.push("/")} className="bg-green-600 hover:bg-green-700">
+            <Button onClick={() => router.push("/")} className="bg-green-600 hover:bg-green-700 w-full sm:w-auto">
               Complete
             </Button>
           </CardContent>
@@ -127,25 +127,27 @@ export function VotingInterface({ token, voter, category, candidates }: VotingIn
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 px-2 sm:px-4">
       {token.linkType !== "unified" && <TokenStatus token={token} voter={voter} category={category} />}
 
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center">
-            <Vote className="w-5 h-5 mr-2 text-blue-600" />
+        <CardHeader className="pb-3 sm:pb-6">
+          <CardTitle className="flex items-center text-base sm:text-lg">
+            <Vote className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600" />
             Select Your Candidate
           </CardTitle>
-          <CardDescription>Choose one candidate for {category?.name}. You can only vote once.</CardDescription>
+          <CardDescription className="text-xs sm:text-sm">
+            Choose one candidate for {category?.name}. You can only vote once.
+          </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-3 sm:px-6">
           {candidates.length === 0 ? (
-            <div className="text-center py-8">
-              <Trophy className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500">No candidates available for this category.</p>
+            <div className="text-center py-6 sm:py-8">
+              <Trophy className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-sm sm:text-base text-gray-500">No candidates available for this category.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {candidates.map((candidate) => (
                 <Card
                   key={candidate.id}
@@ -156,20 +158,24 @@ export function VotingInterface({ token, voter, category, candidates }: VotingIn
                   }`}
                   onClick={() => setSelectedCandidate(candidate.id)}
                 >
-                  <CardHeader className="pb-3">
+                  <CardHeader className="pb-2 sm:pb-3">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <UserCheck className="w-5 h-5 text-green-600" />
-                        <CardTitle className="text-lg">{candidate.name}</CardTitle>
+                      <div className="flex items-center space-x-2 min-w-0 flex-1">
+                        <UserCheck className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 flex-shrink-0" />
+                        <CardTitle className="text-sm sm:text-lg truncate">{candidate.name}</CardTitle>
                       </div>
-                      {selectedCandidate === candidate.id && <CheckCircle className="w-5 h-5 text-blue-600" />}
+                      {selectedCandidate === candidate.id && (
+                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0" />
+                      )}
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 text-sm mb-3">{candidate.description}</p>
-                    <div className="flex items-center justify-between">
-                      <Badge variant="outline">{category?.name}</Badge>
-                      <span className="text-sm text-gray-500">
+                  <CardContent className="pt-0">
+                    <p className="text-gray-600 text-xs sm:text-sm mb-3 line-clamp-2">{candidate.description}</p>
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <Badge variant="outline" className="text-xs">
+                        {category?.name}
+                      </Badge>
+                      <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap">
                         {candidate.votes || 0} vote{(candidate.votes || 0) !== 1 ? "s" : ""}
                       </span>
                     </div>
@@ -181,34 +187,34 @@ export function VotingInterface({ token, voter, category, candidates }: VotingIn
 
           {error && (
             <Alert variant="destructive" className="mt-4">
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription className="text-xs sm:text-sm">{error}</AlertDescription>
             </Alert>
           )}
 
           {candidates.length > 0 && (
-            <div className="mt-6 flex justify-center">
+            <div className="mt-4 sm:mt-6 flex justify-center">
               <Button
                 onClick={handleVoteSubmit}
                 disabled={!selectedCandidate || loading}
                 size="lg"
-                className="bg-green-600 hover:bg-green-700 px-8"
+                className="bg-green-600 hover:bg-green-700 px-6 sm:px-8 w-full sm:w-auto"
               >
                 {loading ? (
                   <div className="flex items-center gap-2">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    Submitting Vote...
+                    <div className="animate-spin rounded-full h-3 sm:h-4 border-b-2 border-white"></div>
+                    <span className="text-xs sm:text-sm">Submitting Vote...</span>
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
-                    <Vote className="w-4 h-4" />
-                    Submit Vote
+                    <Vote className="w-3 sm:w-4" />
+                    <span className="text-xs sm:text-sm">Submit Vote</span>
                   </div>
                 )}
               </Button>
             </div>
           )}
 
-          <div className="mt-6 text-center text-sm text-gray-500">
+          <div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-500 px-2">
             <p>Your vote is anonymous and secure. Once submitted, it cannot be changed.</p>
           </div>
         </CardContent>

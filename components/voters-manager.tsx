@@ -268,12 +268,12 @@ export function VotersManager() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row  items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Voters Management</h1>
           <p className="text-gray-600 mt-2">Manage registered voters and their information</p>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-col md:flex-row  gap-1 space-x-2">
           <input type="file" accept=".csv" onChange={handleCSVUpload} ref={fileInputRef} className="hidden" />
           <Button variant="outline" onClick={() => fileInputRef.current?.click()}>
             <Upload className="w-4 h-4 mr-2" />
@@ -318,7 +318,7 @@ export function VotersManager() {
                   <Users className="w-5 h-5 text-blue-600" />
                   <CardTitle className="text-lg">{voter.username}</CardTitle>
                 </div>
-                <div className="flex items-center space-x-1">
+                <div className="flex flex-col md:flex-row items-center space-x-1">
                   <Button variant="ghost" size="sm" onClick={() => handleEdit(voter)}>
                     <Edit className="w-4 h-4" />
                   </Button>

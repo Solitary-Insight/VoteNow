@@ -1,6 +1,0 @@
-{
-  "/dashboard/tokens/page": "app/dashboard/tokens/page.js",
-  "/dashboard/voters/page": "app/dashboard/voters/page.js",
-  "/dashboard/categories/page": "app/dashboard/categories/page.js",
-  "/dashboard/candidates/page": "app/dashboard/candidates/page.js"
-}
