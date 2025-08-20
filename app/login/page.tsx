@@ -157,7 +157,7 @@ export default function LoginPage() {
                 </Button>
               </form>
 
-              <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-muted/50 rounded-lg border border-border/50">
+              {/* <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-muted/50 rounded-lg border border-border/50">
                 <div className="text-center text-xs sm:text-sm text-muted-foreground">
                   <p className="font-medium mb-2">Default Admin Credentials (Auto-filled):</p>
                   <div className="space-y-1">
@@ -167,7 +167,7 @@ export default function LoginPage() {
                     <p className="font-mono text-xs bg-background/50 px-2 py-1 rounded border">admin123</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
 
