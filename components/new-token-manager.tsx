@@ -208,18 +208,22 @@ export function NewTokenManager() {
     setLoading(true)
 
     try {
-      const unifiedUrl = await generateUnifiedLink(selectedCategory, tokenDuration)
+      const unifiedUrl = await generateUnifiedLink(selectedCategory, tokenDuration, selectedVoters)
 
       await navigator.clipboard.writeText(unifiedUrl)
 
       toast({
         title: "✅ Success!",
-        description: "Unified voting link generated and copied to clipboard!",
+        description:
+          selectedVoters.length > 0
+            ? `Unified voting link generated for ${selectedVoters.length} selected voters and copied to clipboard!`
+            : "Unified voting link generated for all voters and copied to clipboard!",
         duration: 3000,
       })
 
       setIsDialogOpen(false)
       setSelectedCategory("")
+      setSelectedVoters([])
     } catch (error) {
       toast({
         title: "❌ Error",
@@ -765,7 +769,8 @@ export function NewTokenManager() {
               <p className="text-sm font-medium text-gray-700 mb-2">Link Types:</p>
               <div className="space-y-2 text-sm text-gray-600">
                 <p>
-                  <strong>Unified Link:</strong> Single link for all voters, requires phone verification
+                  <strong>Unified Link:</strong> Single link for selected voters (or all if none selected), requires
+                  phone verification
                 </p>
                 <p>
                   <strong>Particular Links:</strong> Individual links for selected voters, no verification needed

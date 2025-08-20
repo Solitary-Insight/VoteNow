@@ -9,6 +9,7 @@ export interface UnifiedLinkData {
   createdAt: number
   expiresAt: number
   active: boolean
+  voterIds: string[]
 }
 
 export interface ParticularLinkData {
@@ -28,7 +29,11 @@ export interface ParticularLinkData {
   }>
 }
 
-export async function generateUnifiedLink(categoryId: string, durationSeconds: number): Promise<string> {
+export async function generateUnifiedLink(
+  categoryId: string,
+  durationSeconds: number,
+  voterIds: string[] = [],
+): Promise<string> {
   try {
     // Get category data
     const categoryRef = ref(database, `elections/categories/${categoryId}`)
@@ -49,6 +54,7 @@ export async function generateUnifiedLink(categoryId: string, durationSeconds: n
       createdAt: Date.now(),
       expiresAt: Date.now() + durationSeconds * 1000,
       active: true,
+      voterIds,
     }
 
     // Save to database
@@ -208,6 +214,14 @@ export async function validateUnifiedLink(
         console.log("[v0] Available phone numbers in database:", Object.keys(allVotersSnapshot.val()))
       }
       return { isValid: false, error: "Phone number not found in voter registry" }
+    }
+
+    if (linkData.voterIds && linkData.voterIds.length > 0 && !linkData.voterIds.includes(voterId)) {
+      console.log("[v0] Voter not selected for this unified link:", voterId)
+      return {
+        isValid: false,
+        error: "You are not eligible to vote using this link. Please contact the administrator.",
+      }
     }
 
     const voterRef = ref(database, `auth/voters/${voterId}`)
