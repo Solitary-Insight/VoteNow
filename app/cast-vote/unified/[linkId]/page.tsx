@@ -133,7 +133,7 @@ export default function UnifiedVotePage() {
         console.log("[SOLITAY_DEBUG_TOKEN]:  Index lookup failed, searching all voters...")
         const votersRef = ref(database, "auth/voters")
         const snapshot = await get(votersRef)
-
+///TEST
         if (snapshot.exists()) {
           const voters = snapshot.val()
           for (const [key, voter] of Object.entries(voters)) {
