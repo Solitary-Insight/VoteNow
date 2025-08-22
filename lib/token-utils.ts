@@ -30,6 +30,8 @@ export function decryptTokenData(encryptedData: string): any {
 }
 
 export async function validateToken(tokenId: string, phoneNumber?: string): Promise<TokenValidationResult> {
+  
+    
   try {
     const decryptedData = decryptTokenData(tokenId)
     if (decryptedData && decryptedData.tokenType === "individual") {

@@ -67,7 +67,7 @@ export default function UnifiedVotePage() {
         }
 
         const linkData = linkSnapshot.val()
-
+        console.log('linkData', JSON.stringify(linkData, null, 2))
         if (linkData.linkType !== "unified" || !linkData.active) {
           setError("Voting link is no longer valid")
           setIsLoading(false)

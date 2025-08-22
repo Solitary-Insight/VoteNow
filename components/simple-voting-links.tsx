@@ -61,6 +61,7 @@ interface Category {
   active: boolean
 }
 
+
 interface VotingLink {
   id: string
   categoryId: string
@@ -109,6 +110,7 @@ export function SimpleVotingLinks() {
           hasVoted: false,
           ...voter,
         }))
+
         setVoters(votersArray)
       } else {
         setVoters([])
@@ -208,6 +210,10 @@ export function SimpleVotingLinks() {
     setLoading(true)
     try {
       const selectedCat = categories.find((c) => c.id === selectedCategory)
+      const selcted_voters_phones= selectedVoters.map((voterId) => {
+        const voter = voters.find((v) => v.id === voterId)
+        return voter?.phoneNumber
+      })
       const expiryTimestamp = Date.now() + expirySeconds * 1000
       const baseUrl = window.location.origin
 
@@ -217,6 +223,7 @@ export function SimpleVotingLinks() {
         id: unifiedLinkId,
         categoryId: selectedCategory,
         categoryName: selectedCat?.name || "",
+        selected_voters:selcted_voters_phones,
         linkType: "unified",
         createdAt: Date.now(),
         expiresAt: expiryTimestamp,

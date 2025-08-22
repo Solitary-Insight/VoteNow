@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { AlertCircle, Globe, Phone } from "lucide-react"
 import { ref, get } from "firebase/database"
 import { database } from "@/lib/firebase"
+import {generatePakistaniNumberVariants} from '@/lib/get_pakistani_numbers_varient'
 
 export default function UnifiedVotePage() {
   const params = useParams()
@@ -32,7 +33,7 @@ export default function UnifiedVotePage() {
 
   const validateLinkExists = async () => {
     try {
-      console.log("[v0] Checking if unified link exists:", linkId)
+      console.log("[SOLITAY_DEBUG_TOKEN]:  Checking if unified link exists:", linkId)
       const linkRef = ref(database, `elections/voting-links/${linkId}`)
       const snapshot = await get(linkRef)
 
@@ -55,11 +56,14 @@ export default function UnifiedVotePage() {
         return
       }
 
-      console.log("[v0] Link validation successful for category:", data.categoryName)
+      console.log("[SOLITAY_DEBUG_TOKEN]:  Link validation successful for category:", data.categoryName)
+
+
       setLinkData(data)
+
       setLoading(false)
     } catch (error) {
-      console.error("[v0] Error validating link:", error)
+      console.error("[SOLITAY_DEBUG_TOKEN]:  Error validating link:", error)
       setError("Failed to validate voting link")
       setLoading(false)
     }
@@ -71,7 +75,7 @@ export default function UnifiedVotePage() {
     setError("")
 
     try {
-      console.log("[v0] Starting phone verification for:", phoneNumber)
+      console.log("[SOLITAY_DEBUG_TOKEN]:  Starting phone verification for:", phoneNumber)
 
       const normalizePhone = (phone: string) => phone.replace(/[^\d]/g, "")
       const normalizedPhone = normalizePhone(phoneNumber)
@@ -84,10 +88,26 @@ export default function UnifiedVotePage() {
         normalizedPhone.startsWith("0") ? normalizedPhone : `0${normalizedPhone}`,
       ]
 
+
+      var isListed = false
+      for (const format of generatePakistaniNumberVariants(phoneNumber)) {
+        for (const allowedPhones of linkData.selected_voters){
+          if(allowedPhones==format){
+            isListed=true
+          }
+        }
+      }
+      if(!isListed){
+
+        setError("Sorry! You are listed to use this token. Please contact adminstrator.")
+
+        return
+      }
+
       let foundVoter = null
       let voterKey = null
 
-      console.log("[v0] Searching for voter with phone formats:", phoneFormats)
+      console.log("[SOLITAY_DEBUG_TOKEN]:  Searching for voter with phone formats:", phoneFormats)
 
       // First try using the phone index for faster lookup
       for (const format of phoneFormats) {
@@ -102,7 +122,7 @@ export default function UnifiedVotePage() {
 
           if (voterSnapshot.exists()) {
             foundVoter = voterSnapshot.val()
-            console.log("[v0] Found voter via index:", foundVoter.username, "with key:", voterKey)
+            console.log("[SOLITAY_DEBUG_TOKEN]:  Found voter via index:", foundVoter.username, "with key:", voterKey)
             break
           }
         }
@@ -110,7 +130,7 @@ export default function UnifiedVotePage() {
 
       // Fallback: search through all voters if index lookup fails
       if (!foundVoter) {
-        console.log("[v0] Index lookup failed, searching all voters...")
+        console.log("[SOLITAY_DEBUG_TOKEN]:  Index lookup failed, searching all voters...")
         const votersRef = ref(database, "auth/voters")
         const snapshot = await get(votersRef)
 
@@ -125,7 +145,7 @@ export default function UnifiedVotePage() {
               if (voterPhone === formatNormalized || voterData.phoneNumber === format) {
                 foundVoter = voterData
                 voterKey = key
-                console.log("[v0] Found voter via full search:", voterData.username, "with phone:", format)
+                console.log("[SOLITAY_DEBUG_TOKEN]:  Found voter via full search:", voterData.username, "with phone:", format)
                 break
               }
             }
@@ -135,7 +155,7 @@ export default function UnifiedVotePage() {
       }
 
       if (!foundVoter) {
-        console.log("[v0] No voter found with phone number:", phoneNumber)
+        console.log("[SOLITAY_DEBUG_TOKEN]:  No voter found with phone number:", phoneNumber)
         setError("Phone number not found. Please check your number or contact the administrator.")
         setVerifying(false)
         return
@@ -153,10 +173,10 @@ export default function UnifiedVotePage() {
         return
       }
 
-      console.log("[v0] Phone verification successful, redirecting to vote")
+      console.log("[SOLITAY_DEBUG_TOKEN]:  Phone verification successful, redirecting to vote")
       router.push(`/cast-vote/unified/${linkId}/vote?voterId=${voterKey}`)
     } catch (error) {
-      console.error("[v0] Phone verification error:", error)
+      console.error("[SOLITAY_DEBUG_TOKEN]:  Phone verification error:", error)
       setError("An error occurred during phone verification. Please try again.")
       setVerifying(false)
     }

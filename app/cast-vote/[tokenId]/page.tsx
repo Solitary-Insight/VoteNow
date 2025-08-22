@@ -36,7 +36,6 @@ export default function CastVotePage() {
         setLoading(false)
         return
       }
-
       setValidationResult(result)
 
       // For individual tokens, proceed directly to voting
@@ -49,6 +48,7 @@ export default function CastVotePage() {
       setError("An error occurred while validating the token")
       setLoading(false)
     }
+    console.log('"first"', JSON.stringify("first", null, 2))
   }
 
   const handlePhoneVerification = async (phoneNumber: string) => {
